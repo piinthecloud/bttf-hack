@@ -1,4 +1,14 @@
-# angular-seed — the seed for AngularJS apps
+# Africatown Affordable Housing Hack Challenge
+We're hacking [affordable housing](http://btfhackchallenges.org/affordable-housing/) in Seattle at the [2016 Black to the Future Hackathon](http://blacktothefuturehack.org/).
+
+### Project Information
+
+* Problem definition -- [Affordable Housing in Seattle](http://btfhackchallenges.org/)
+* Slack channel: [#bttf-hackathon](https://bttf-africatown.slack.com/)
+
+# Technical Documentation
+
+## angular-seed — the seed for AngularJS apps
 
 This project is an application skeleton for a typical [AngularJS](http://angularjs.org/) web app.
 You can use it to quickly bootstrap your angular webapp projects and dev environment for these
