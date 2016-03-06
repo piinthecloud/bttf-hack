@@ -6,6 +6,7 @@ angular.module('myApp', [
   'myApp.view1',
   'myApp.view2',
   'myApp.home',
+  'myApp.form',
   'myApp.version',
   'ui.bootstrap'
 ]).
