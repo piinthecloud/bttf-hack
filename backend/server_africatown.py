@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, session, request, flash
+from flask import Flask, render_template, redirect, url_for, session, request, flash, jsonify
 
 import psycopg2
 
@@ -14,7 +14,37 @@ bcrypt = Bcrypt(app)
 app.secret_key = '=\xb3\xb0iAb\x93\xec\x9f\x0f\xde\xf3\x06R\xd8\xa0*\x1fh\xd7%Q\x88\xaf'
 
 conn = psycopg2.connect("host=192.168.99.100 dbname=postgres user=postgres password=pw")
-cur = conn.cursor()
+
+def selections_to_json(selections):
+        print(selections)
+        return jsonify([(s[0], s[1]) for s in selections])
+
+@app.route('/selections/barriers', methods=['GET'])
+def barrier_selections():
+        qry = "select * from barrier_selection"
+        cur = conn.cursor()
+        cur.execute(qry)
+        results = cur.fetchall()
+        
+        return selections_to_json(results)
+
+@app.route('/selections/historical_connection', methods=['GET'])
+def historical_connections():
+        qry = "select * from historical_connection_selection"
+        cur = conn.cursor()
+        cur.execute(qry)
+        results = cur.fetchall()
+        
+        return selections_to_json(results)
+
+@app.route('/selections/visitor_reasons', methods=['GET'])
+def visitor_reasons():
+        qry = "select * from visitor_reason_selection"
+        cur = conn.cursor()
+        cur.execute(qry)
+        results = cur.fetchall()
+        
+        return selections_to_json(results)
 
 @app.route('/')
 def index():
