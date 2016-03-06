@@ -47,7 +47,7 @@ create table seeker (
 create table seeker_form_response (
        seeker_id bigserial references seeker (seeker_id),
        phone_number text,
-       gender char,
+       gender text,
        birthdate date,
        race_ethnicity text,
        profession text,
