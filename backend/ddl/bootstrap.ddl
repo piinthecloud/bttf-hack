@@ -3,6 +3,7 @@ drop table if exists barrier_selection cascade;
 drop table if exists historical_connection_selection cascade;
 drop table if exists provider cascade;
 drop table if exists seeker cascade;
+drop table if exists seeker_form_response cascade;
 drop table if exists users cascade;
 
 create table visitor_reason_selection (
@@ -31,12 +32,20 @@ create table users (
        password_bc text not null,
        created_dtm timestamptz not null,
        updated_dtm timestamptz,
+       last_login_dt date,
        primary key (user_id)
 );
 
 create table seeker (
        user_id bigserial references users (user_id),
        seeker_id bigserial,
+       is_matched boolean,
+       is_active boolean,
+       primary key (seeker_id)
+);
+
+create table seeker_form_response (
+       seeker_id bigserial references seeker (seeker_id),
        phone_number text,
        gender char,
        birthdate date,
