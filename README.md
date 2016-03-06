@@ -291,6 +291,30 @@ CloudBees have provided a CI/deployment setup:
 If you run this, you will get a cloned version of this repo to start working on in a private git repo,
 along with a CI service (in Jenkins) hosted that will run unit and end to end tests in both Firefox and Chrome.
 
+## Backend
+The backend is driven by a simple Flask app that provides a RESTful CRUD interface to a postgres database.
+
+### Setup
+The database can be set up by executing the following files against an empty database:
+
+* `backend/ddl/bootstrap.ddl`
+* `backend/ddl/form_selections.ddl`
+* `backend/ddl/test_data.ddl` <-- this is not to be deployed, only used for testing purposes
+
+The necessary python dependencies can be installed via:
+
+* `pip install -r backend/requirements.txt`
+ 
+And then the server can be started by invoking
+
+* `python backend/africatown_server.py`
+
+### Available routes
+* GET `/selections/barriers` returns all multiple choice entries for barriers to living in an area
+* GET `/selections/historical_connection` returns all multiple choice entries for historical connection to an area
+* GET `/selections/visitor_reasons` returns all multiple choice reasons that visitors may frequent an area 
+* GET `/seeker/<uid>` returns all seeker data including seeker id for a given user id
+* POST `/seeker/<sid>/form_response/create` creates a new form response for a seeker form.  the data should be `POST`ed as `application/json` MIME-type.  All field names that were submitted should match the corresponding names of the columns in the database table `seeker_form_response`.
 
 ## Contact
 
