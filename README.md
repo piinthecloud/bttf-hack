@@ -307,7 +307,7 @@ The necessary python dependencies can be installed via:
  
 And then the server can be started by invoking
 
-* `python backend/africatown_server.py`
+* `python backend/server_africatown.py`
 
 ### Available routes
 * GET `/selections/barriers` returns all multiple choice entries for barriers to living in an area
