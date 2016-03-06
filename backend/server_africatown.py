@@ -16,6 +16,15 @@ app.secret_key = '=\xb3\xb0iAb\x93\xec\x9f\x0f\xde\xf3\x06R\xd8\xa0*\x1fh\xd7%Q\
 
 conn = psycopg2.connect("host=192.168.99.100 dbname=postgres user=postgres password=pw")
 
+def seeker_row_to_json(seeker):
+        uid = seeker[0]
+        sid = seeker[1]
+        matched = seeker[2]
+        active = seeker[3]
+
+        json = {'user_id': uid, 'seeker_id': sid, 'is_matched': matched, 'is_active': active}
+        return jsonify(json)
+
 def selections_to_json(selections):
         print(selections)
         return jsonify([(s[0], s[1]) for s in selections])
@@ -47,6 +56,16 @@ def visitor_reasons():
         
         return selections_to_json(results)
 
+@app.route('/seeker/<user_id>', methods=['GET'])
+def get_seeker(user_id):
+        qry = "select * from seeker where user_id = {}".format(user_id)
+        cur = conn.cursor()
+
+        cur.execute(qry)
+        results = cur.fetchone()
+
+        return seeker_row_to_json(results)
+        
 @app.route('/seeker/<sid>/form_response/create', methods=['POST'])
 def new_seeker_form_response(sid):
         content = request.get_json(silent=False)
