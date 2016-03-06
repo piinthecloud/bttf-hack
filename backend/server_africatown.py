@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, session, request, flash, jsonify
+from form_definitions import SeekerFormData, FormDataError
 
 import psycopg2
 
@@ -46,6 +47,31 @@ def visitor_reasons():
         
         return selections_to_json(results)
 
+@app.route('/seeker/<sid>/form_response/create', methods=['POST'])
+def new_seeker_form_response(sid):
+        content = request.get_json(silent=False)
+        print("new form data for seeker {}: {}".format(sid, content))
+
+        try:
+                formdata = SeekerFormData(sid, content)
+
+                cur = conn.cursor()
+                qry = formdata.insert_statement()
+                cur.execute(qry)
+
+                conn.commit()
+                res = {"ok": 1}
+
+                return jsonify(res)
+                
+        except FormDataError as constructor_err:
+                res = {"error": constructor_err.args[0]}
+                return jsonify(res)
+        except Exception as err:
+                conn.rollback()
+                res = {"error": err.args}
+                return jsonify(res)
+        
 @app.route('/')
 def index():
 	return render_template('signup.html')
