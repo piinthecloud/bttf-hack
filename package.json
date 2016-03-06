@@ -18,6 +18,11 @@
     "shelljs": "^0.6.0"
   },
   "scripts": {
+    "build:css": "./node_modules/.bin/node-sass ./sass -o ./app",
+    "watch:css": "watch 'npm run build:css' ./sass",
+    "build": "npm run build:css",
+    "build:watch": "npm run watch:css",
+
     "postinstall": "bower install",
 
     "prestart": "npm install",
