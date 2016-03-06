@@ -10,4 +10,9 @@ angular.module('myApp', [
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/home'});
+  // Closes the Responsive Menu on Menu Item Click
+  $('.navbar-toggle').click(function() {
+      console.log("test")
+      $("#bs-example-navbar-collapse-1").toggle();
+  });
 }]);
