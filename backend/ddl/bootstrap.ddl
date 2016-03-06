@@ -40,6 +40,7 @@ create table seeker (
        user_id bigserial references users (user_id),
        seeker_id bigserial,
        is_matched boolean,
+       is_active boolean,
        primary key (seeker_id)
 );
 
